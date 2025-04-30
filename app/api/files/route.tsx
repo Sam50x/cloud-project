@@ -2,15 +2,15 @@ import { NextResponse } from 'next/server'
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3'
 
 const s3 = new S3Client({
-    region: process.env.AWS_REGION as string,
+    region: process.env.NEXT_PUBLIC_AWS_REGION as string,
     credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY as string,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+        accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY as string,
+        secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY as string,
     },
 })
 
 export async function GET() {
-    const bucketName = process.env.AWS_S3_BUCKET_NAME!
+    const bucketName = process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME!
 
     try {
         const command = new ListObjectsV2Command({

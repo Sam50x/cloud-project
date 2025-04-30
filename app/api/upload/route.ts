@@ -6,24 +6,24 @@ export async function GET() {
 }
 
 const s3Client = new S3Client({
-    region: process.env.AWS_REGION as string,
+    region: process.env.NEXT_PUBLIC_AWS_REGION as string,
     credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY as string,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+        accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY as string,
+        secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY as string,
     },
 });
 
 console.log('S3 Client Config:', {
-    region: process.env.AWS_REGION as string,
-    accessKeyId: process.env.AWS_ACCESS_KEY as string,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string ? '***' : 'Missing',
+    region: process.env.NEXT_PUBLIC_AWS_REGION as string,
+    accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY as string,
+    secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY as string ? '***' : 'Missing',
 });
 
 async function uploadFileToS3(fileBuffer: Buffer, fileName: string) {
     console.log(fileName)
 
     const params = {
-        Bucket: process.env.AWS_S3_BUCKET_NAME as string,
+        Bucket: process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME as string,
         Key: `${fileName}-${Date.now()}`,
         Body: fileBuffer,
     }
