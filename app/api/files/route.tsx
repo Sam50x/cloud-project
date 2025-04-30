@@ -21,7 +21,7 @@ export async function GET() {
 
         const files = response.Contents?.map((file) => ({
             name: file.Key!,
-            url: `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${file.Key}`,
+            url: `https://${bucketName}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${file.Key}`,
         })) || []
 
         return NextResponse.json(files)

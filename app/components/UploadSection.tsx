@@ -1,11 +1,14 @@
 'use client'
 
+import { Url } from "aws-sdk/clients/cloudformation";
 import { useState } from "react";
 
 const UploadSection = () => {
     const [isUploading, setIsUploading] = useState(false);
     const [file, setFile] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [url, setURL] = useState<Url | null>(null);
+
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setError(null);
@@ -48,6 +51,7 @@ const UploadSection = () => {
             }
 
             setError('File Uploaded Successfully!');
+            setURL(data.fileUrl);
         } catch (error) {
             console.error('Upload error:', error);
             setError(error instanceof Error ? error.message : 'Upload failed. Check console for details.');
@@ -86,6 +90,11 @@ const UploadSection = () => {
                     <div className="mt-4 p-2 bg-red-800 text-red-200 rounded">
                         Msg: {typeof error === 'string' ? error : 'An unknown error occurred.'}
                     </div>
+                )}
+                {url && (
+                    <a className="mt-4 p-2 bg-red-800 text-red-200 rounded" href={url}>
+                        Click here to download
+                    </a>
                 )}
             </div>
         </div>

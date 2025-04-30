@@ -31,7 +31,9 @@ async function uploadFileToS3(fileBuffer: Buffer, fileName: string) {
     const command = new PutObjectCommand(params)
     await s3Client.send(command)
 
-    return fileName
+    const fileUrl = `https://${process.env.NEXT_PUBLIC_AWS_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${params.Key}`;
+
+    return fileUrl;
 }
 
 export async function POST(req: NextRequest) {
@@ -44,9 +46,9 @@ export async function POST(req: NextRequest) {
         }
 
         const buffer = Buffer.from(await file.arrayBuffer());
-        const fileName = await uploadFileToS3(buffer, file.name);
+        const fileUrl = await uploadFileToS3(buffer, file.name);
 
-        return NextResponse.json({ msg: 'File Uploaded Successfully!!', fileName });
+        return NextResponse.json({ msg: 'File Uploaded Successfully!!', fileUrl });
     } catch (e) {
         console.error('Error in POST /api/upload:', e);
         const errorMessage = e instanceof Error ? e.message : JSON.stringify(e);
