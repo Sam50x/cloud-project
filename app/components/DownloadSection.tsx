@@ -25,7 +25,7 @@ const DownloadSection = () => {
     }, [])
 
     return (
-        <div className="bg-green-900 overflow-hidden p-6 flex flex-col items-center justify-center h-full w-full">
+        <div className="bg-blue-900 overflow-hidden p-6 flex flex-col items-center justify-center h-full w-full">
             <h1 className="text-2xl font-bold text-green-200">Download</h1>
             <div className="h-full w-full overflow-y-scroll max-h-120">
                 {files.map((file, index) => (
